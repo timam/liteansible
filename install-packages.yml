@@ -1,0 +1,21 @@
+---
+- hosts: all
+  become: true
+  become_user: root
+  
+  tasks:
+  - name: update system
+    apt:
+      upgrade: yes
+      update_cache: yes
+      cache_valid_time: 86400 #One day
+
+  - name: Install tree
+    package: name=tree state=latest
+
+  - name: install Git
+    shell:
+      cmd: |
+        sudo su - <<EOF
+        apt-get install -y git
+        EOF
